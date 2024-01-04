@@ -51,7 +51,7 @@ func (c *LoanContract) RequestLoan(amount, fee, collateral string, deadline time
 	}
 
 	// Add the loan to the AVL tree
-	c.loan.Set(loan.ID, loan)
+	c.loan.Set(requestLoan.ID, requestLoan)
 
 	return requestLoan
 }
