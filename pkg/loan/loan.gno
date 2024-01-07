@@ -87,3 +87,27 @@ func (l *Loan) IsLoanApproved() bool {
 func (l *Loan) IsLoanPending() bool {
 	return strings.Compare(l.GetLoanState(), "PENDING") == 0
 }
+
+// GetLoanByID returns the loan using the ID
+func (l *Loan) GetLoanByID(id string) *Loan {
+	loan, found := l.Get(id)
+	if !found {
+		return nil
+	}
+
+	return loan.(*loan)
+}
+
+// GetLoans returns all loan
+func (l * Loan) GetLoans() []*Loan {
+	loans := make([]*Loan, l.Size())
+
+	index := 0
+	l.Iterate("", "", func(n *avl.Node) bool {
+		loans[index] = n.Value().(*Loan)
+
+		return false
+	})
+
+	return loans
+}
